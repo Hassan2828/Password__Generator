@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Password Generator</h1>
+        <label>Password Length:
+        <input type="number" value="12" id="len" min="6">
+        </label>
+        <br />
+
+        <label>
+            <input id="upper" type="checkbox" checked /> Include Uppercase
+        </label>
+        <br />
+        <label>
+    <input id="nums" type="checkbox" checked />
+    Include Numbers
+        </label>
+        <br />
+        <label>
+        <input id="special" type="checkbox" checked/>
+        Include Special Characters
+        </label>
+        <br />
+
+        <button class="btn" onclick="checkbox" checked>Generate Password</button>
+
+        <button class="btn" onclick="reset()">Reset</button>
+
+        <div class="output" id="passOut">Your password will appear here</div>
+    </div>
+
+    <script>
+        function genPass(len, upper, nums, special) {
+        const lower = "abcdefghijklmnopqrstuvwxyz";
+        const upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const numChars = "0123456789";
+        const specialChars = "~!@#$%^&*()_+{}:?";
+        let chars = lower;
+
+        if(upper) chars += upperChars;
+        if(nums) chars += numChars;
+        if(special) chars += specialChars;
+
+        let pass = "";
+        for(let i = 0; i<len; i++){
+            const randIdx = Math.floor(Math.random() * chars.length);
+            pass += chars[randIdx];
+        }
+        return pass;
+        }
+        function generate() {
+            const len = parseInt(document.getElementById("len").value);
+            
+            const upper = document.getElementById("nums").checked;
+
+            const nums = document.getElementById("nums").checked;
+            
+            const special = document.getElementById("special").checked;
+
+            const pass = genPass(len, upper, nums, special);
+
+            document.getElementById("passOut").textContent = pass;
+
+            function reset(){
+            document.getElementById("len").value = 12;
+            document.getElementById("upper").checked = true;
+            document.getElementById("nums").checked = true;
+            document.getElementById("special").checked = true;
+            document.getElementById("passOut").textContent = "Your password will appear here";
+            }
+        }
+    </script>
+</body>
+</html>
